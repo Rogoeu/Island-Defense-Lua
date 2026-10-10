@@ -1,0 +1,12 @@
+IncludeFile "UI\FrameDef\UI\EscMenuTemplates.fdf",
+
+Frame "EDITBOX" "IDVictoryLinkEditBox" INHERITS WITHCHILDREN "EscMenuEditBoxTemplate" {
+    Width 0.332,
+    Height 0.026,
+    FrameFont "MasterFont", 0.008, "",
+    EditHighlightColor 0.20 0.55 1.0 0.40,
+    EditTextFrame "IDVictoryLinkText",
+    Frame "TEXT" "IDVictoryLinkText" INHERITS "EscMenuEditBoxTextTemplate" {
+        FrameFont "MasterFont", 0.008, "",
+    }
+}
