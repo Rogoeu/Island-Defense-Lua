@@ -218,21 +218,32 @@ OnInit.final("IslandDefenseAutoStart", function(import)
         local players = collectPlayers()
         local candidates = {}
         local eligible = {}
+        local declined = {}
+        local fakes = {}
         local i = 1
 
+        -- Sort players into pools. Volunteers come first, then eligible players who
+        -- gave no answer, then fake players (solo lobbies), then eligible players who
+        -- said no, so a decline is honoured whenever anyone else can take Titan.
         while i <= #players do
-            if canVolunteer(players[i]) then
-                eligible[#eligible + 1] = players[i]
-                if volunteers[players[i]:id()] then
-                    candidates[#candidates + 1] = players[i]
+            local playerData = players[i]
+            if canVolunteer(playerData) then
+                if volunteers[playerData:id()] == true then
+                    candidates[#candidates + 1] = playerData
+                elseif volunteers[playerData:id()] == false then
+                    declined[#declined + 1] = playerData
+                else
+                    eligible[#eligible + 1] = playerData
                 end
+            elseif playerData:isFake() then
+                fakes[#fakes + 1] = playerData
             end
             i = i + 1
         end
 
         local titan = chooseRandom(candidates)
         if not titan then
-            titan = chooseRandom(eligible)
+            titan = chooseRandom(eligible) or chooseRandom(fakes) or chooseRandom(declined)
             if not titan then
                 titan = chooseRandom(players)
                 if titan then
