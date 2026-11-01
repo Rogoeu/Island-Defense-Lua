@@ -148,9 +148,9 @@ OnInit("TowerRange", function(import)
         [FourCC("h03N")] = 700.0, -- Radioactive Radon Tower, Super Magic, Lumber
         [FourCC("h03Y")] = 850.0, -- Radioactive Radon Tower, Mega Magic, Gold
         [FourCC("h04B")] = 850.0, -- Radioactive Radon Tower, Mega Magic, Lumber
-        [FourCC("h04I")] = 600.0, -- Radioactive Radon Tower, Enhanced Overload
+        [FourCC("h03I")] = 600.0, -- Radioactive Radon Tower, Enhanced Overload
         [FourCC("h03O")] = 700.0, -- Radioactive Radon Tower, Super Overload, Gold
-        [FourCC("H03P")] = 700.0, -- Radioactive Radon Tower, Super Overload, Lumber
+        [FourCC("h03P")] = 700.0, -- Radioactive Radon Tower, Super Overload, Lumber
         [FourCC("h047")] = 850.0, -- Radioactive Radon Tower, Mega Overload, Gold
         [FourCC("h04A")] = 850.0, -- Radioactive Radon Tower, Mega Overload, Lumber
         [FourCC("h03J")] = 600.0, -- Radioactive Radon Tower, Enhanced Rapid
