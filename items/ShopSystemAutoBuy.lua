@@ -133,7 +133,7 @@ OnInit("ShopSystemAutoBuy", function(import)
         [201] = { 103, 107 },      -- Blasting Wand
         [202] = { 105, 106, 110 }, -- Casque of Valor
         [203] = { 103, 103 },      -- Caster Scroll
-        [204] = { 153, 103, 107 }, -- Enchantress' Vial
+        [204] = { 153, 110, 110 }, -- Enchantress' Vial
         [205] = { 152, 152, 106 }, -- Eternal Wards
         [206] = { 103, 108 },      -- Ethereal Mirror
         [207] = { 156, 156 },      -- Cyclone Staff
