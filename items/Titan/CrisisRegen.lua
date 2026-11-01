@@ -97,13 +97,25 @@ OnInit("TitanItemCrisisRegen", function(import)
         end
     end
 
+    -- Death stops the watcher, and an Ankh revive keeps the inventory, so no
+    -- pickup event follows. Restart it when a hero holding a regen item revives.
+    local function onRevive()
+        local unit = GetTriggerUnit()
+
+        if unit and hasRegenItem(unit) then
+            start(unit)
+        end
+    end
+
     local pickupTrigger = CreateTrigger()
     local dropTrigger = CreateTrigger()
+    local reviveTrigger = CreateTrigger()
     local i = 0
 
     while i < bj_MAX_PLAYER_SLOTS do
         TriggerRegisterPlayerUnitEvent(pickupTrigger, Player(i), EVENT_PLAYER_UNIT_PICKUP_ITEM, nil)
         TriggerRegisterPlayerUnitEvent(dropTrigger, Player(i), EVENT_PLAYER_UNIT_DROP_ITEM, nil)
+        TriggerRegisterPlayerUnitEvent(reviveTrigger, Player(i), EVENT_PLAYER_HERO_REVIVE_FINISH, nil)
         i = i + 1
     end
 
@@ -118,6 +130,7 @@ OnInit("TitanItemCrisisRegen", function(import)
 
     TriggerAddAction(pickupTrigger, function() guarded(onPickup) end)
     TriggerAddAction(dropTrigger, function() guarded(onDrop) end)
+    TriggerAddAction(reviveTrigger, function() guarded(onRevive) end)
 
     TitanItemCrisisRegen.ids = IDS
     TitanItemCrisisRegen.start = start
