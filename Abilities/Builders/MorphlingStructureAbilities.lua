@@ -24,7 +24,7 @@ OnInit("MorphlingStructureAbilities", function(import)
     local REPLICATE_DEBUG = false
 
     local CURSE_TOWER = {
-        [FourCC("0018")] = true,
+        [FourCC("o018")] = true,
         [FourCC("o01A")] = true,
         [FourCC("o01B")] = true,
         [FourCC("o01C")] = true
