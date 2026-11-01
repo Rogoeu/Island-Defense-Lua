@@ -252,6 +252,11 @@ OnInit("IslandDefenseSystem", function(import)
         end
         Game.setState(Game.STATE_STARTED)
         Game.say("[|cff20bb20Game Started|r]")
+        -- A side can already be empty at start (every builder removed as AFK, or
+        -- no builder spawned); nothing dies in that case to trigger the check.
+        if rawget(_G, "WinCondition") and WinCondition.checkSoon then
+            WinCondition.checkSoon()
+        end
         if currentMode and currentMode.start then
             return currentMode:start()
         end

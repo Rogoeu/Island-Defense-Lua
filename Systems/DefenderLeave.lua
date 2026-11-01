@@ -408,6 +408,11 @@ OnInit("DefenderLeave", function(import)
         else
             Game.say(nameColored(oldTitanData) .. "|cff90b0d0 has left the game. |r" .. nameColored(newTitanData) .. "|cff00bfff is now the Titan.|r")
         end
+
+        -- Units were removed, not killed, so the death trigger never ran the win check.
+        if rawget(_G, "WinCondition") and WinCondition.checkSoon then
+            WinCondition.checkSoon()
+        end
         return true
     end
 
@@ -560,6 +565,11 @@ OnInit("DefenderLeave", function(import)
             end
         else
             Game.say(nameColored(playerData) .. "|cff90b0d0's units have been removed.|r")
+        end
+
+        -- Units were removed, not killed, so the death trigger never ran the win check.
+        if rawget(_G, "WinCondition") and WinCondition.checkSoon then
+            WinCondition.checkSoon()
         end
     end
 
