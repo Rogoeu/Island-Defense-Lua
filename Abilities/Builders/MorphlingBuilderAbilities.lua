@@ -206,7 +206,10 @@ OnInit("MorphlingBuilderAbilities", function(import)
         local caster = GetTriggerUnit()
 
         if abilityId == IDS.SLAM_CAST then
-            castSlam(caster)
+            -- Dawnkeeper shares this ability id; only a Morphling form slams.
+            if fromBeast(caster) or fromWarrior(caster) or fromBuilder(caster) then
+                castSlam(caster)
+            end
         else
             handleTransformation(caster, abilityId)
         end
