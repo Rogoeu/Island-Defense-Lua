@@ -11,8 +11,12 @@ OnInit("TitanItemEssenceOfPureMagic", function(import)
     }
 
     local DURATION = 2.5
-    local RESTORE_AMOUNT = 1000.0
+    local RESTORE_AMOUNT = 1500.0
     local TIMER_SPEED = 0.10
+    -- Count ticks rather than summing elapsed time: 25 additions of 0.1 land just
+    -- above 2.5 in floating point and used to skip the final tick.
+    local TICK_COUNT = math.floor(DURATION / TIMER_SPEED + 0.5)
+    local RESTORE_PER_TICK = RESTORE_AMOUNT / TICK_COUNT
 
     local TitanItemEssenceOfPureMagic = {}
 
@@ -21,20 +25,20 @@ OnInit("TitanItemEssenceOfPureMagic", function(import)
     end
 
     local function restoreTimed(unit)
-        local elapsed = 0.0
+        local ticksLeft = TICK_COUNT
         local timer = nil
 
         timer = GameTimer.every(TIMER_SPEED, function()
-            elapsed = elapsed + TIMER_SPEED
-            if elapsed > DURATION or not UnitStateSystem.isAlive(unit) then
+            if ticksLeft <= 0 or not UnitStateSystem.isAlive(unit) then
                 timer:destroy()
                 return
             end
+            ticksLeft = ticksLeft - 1
 
             UnitStateSystem.restore(
                 unit,
-                RESTORE_AMOUNT * TIMER_SPEED / DURATION,
-                RESTORE_AMOUNT * TIMER_SPEED / DURATION,
+                RESTORE_PER_TICK,
+                RESTORE_PER_TICK,
                 { attachPoint = "origin" }
             )
         end)
